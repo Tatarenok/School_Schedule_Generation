@@ -29,4 +29,5 @@ The "School Schedule Generation" project is designed to assist teachers in creat
 ## Developers
 
 - [Tatarenok](https://github.com/Tatarenok)
+- [Whynot46](https://github.com/Whynot46)
 
