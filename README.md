@@ -9,9 +9,6 @@
 </p>
 
 ## About
-[RU]
-Проект "Генерация школьного расписания" разработан с целью помочь педагогам создавать удобные расписания занятий для школьников. Наш инструмент для генерации расписания значительно ускорит процесс создания новых расписаний, делая вашу учебную деятельность более эффективной и комфортной.
-[EN]
 The "School Schedule Generation" project is designed to assist teachers in creating convenient class schedules for students. Our schedule generation tool significantly speeds up the process of designing new schedules, making your teaching experience more efficient and comfortable.
 
 ## Documentation
