@@ -13,9 +13,19 @@
 The "School Schedule Generation" project is designed to assist teachers in creating convenient class schedules for students. Our schedule generation tool significantly speeds up the process of developing new schedules, making your teaching experience more efficient and comfortable.
 
 ## Documentation
+[RU]
+1. Сначала, убедитесь, что у вас установлена версия Python 3.8+ ([Python3.8](https://www.python.org/downloads/release/python-380/));
+3. Затем, установите необходимые библиотеки из файла `requirements.txt`;
+4. В консоли выполните команду `git clone https://github.com/Tatarenok/School_Schedule_Generation.git` для клонирования проекта;
+5. Установка всех компонентов, необходимых для запуска проекта, завершена;
+6. Для запуска проекта, запустите `interfaceV5.py`.
 
-1. Для начала установим Python версии 3.8+. ([Python3.8](https://www.python.org/downloads/release/python-380/));
-2. Устанавливаем библиотеки из requirements.txt;
+[EN]
+1. First, ensure that you have Python version 3.8+ installed ([Python3.8](https://www.python.org/downloads/release/python-380/));
+2. Next, install the required libraries from the `requirements.txt` file;
+3. In the console, execute the command `git clone https://github.com/Tatarenok/School_Schedule_Generation.git` to clone the project;
+4. The installation of all components necessary for running the project is complete;
+5. To run the project, execute the `interfaceV5.py`.
 
 ## Developers
 
