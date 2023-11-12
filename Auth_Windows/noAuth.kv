@@ -3,22 +3,19 @@ ScreenManager:
     noAuthScreenReg:
     inAuthScreen:
 
-<noAuthScreen>:
+<noAuthScreen>: #Окно незарегистрированного пользователя
     id: no_auth_screen
-    RelativeLayout:
-        #Создаем задний фон
+    RelativeLayout:     #Создаем задний фон
         Widget:
             canvas:
-
                 Color:
                     rgba: 0.2, 0.2, 0.4, 1  # Цвет контура
                 Rectangle:
-                    source: 'mylogo.png'
-                    pos: 0,0
-                    size: 1000, 650
+                    #source: 'mylogo.png'
+                    #pos: self.pos
+                    size: self.size
 
-
-        Widget:
+        Widget:     #Рамка для авторизации
             canvas:
                 Color:
                     rgba: 0.1, 0.1, 0.8, 1  # Цвет контура (белый в данном случае)
@@ -222,39 +219,140 @@ ScreenManager:
             theme_text_color: 'Secondary'
             pos_hint: {'center_x': 0.175, 'center_y': 0.205}
 
+        MDIconButton:
+            icon: "close-box"
+            on_release: app.stop()
+            pos_hint: {'center_x': 0.95, 'center_y': 0.97}
+
 <noAuthScreenReg>:
-    BoxLayout:
-        orientation: "vertical"
-        MDLabel:
-            text: "Регистрация"
-            font_style: "H4"
-        MDTextField:
-            hint_text: "Имя"
-        MDTextField:
-            hint_text: "Email"
-        MDRaisedButton:
-            text: "Зарегистрироваться"
-            on_release: app.register(*args)
-
-<inAuthScreen>:
-    id: in_auth_screen
-    BoxLayout:
-        orientation: "vertical"
-        MDLabel:
-            text: "Добро пожаловать в систему"
-            font_style: "H4"
-            halign: "center"
-            size_hint_y: None
-            height: "48dp"
-
-        MDRaisedButton:
-            text: "Выход"
-            on_release: app.logout()
+    id: no_auth_screen_reg
     RelativeLayout:
         #Создаем задний фон
         Widget:
             canvas:
+                Color:
+                    rgba: 0.2, 0.2, 0.4, 1  # Цвет контура
+                Rectangle:
+                    source: 'mylogo.png'
+                    pos: self.pos
+                    size: self.size
 
+        MDTextField:
+            id: login_field
+            hint_text: "Имя"
+            #required: True
+            #helper_text: "*Обязательное поле"
+            helper_text_mode: "on_error"
+            size_hint_x: None  # Запрещаем автоматическое изменение ширины
+            size_hint_y: None  # Запрещаем автоматическое изменение высоты
+            width: "220dp"  # Устанавлваем желаемую ширину
+            height: "60dp"  # Устанавливаем желаемую высоту
+            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+
+        MDTextField:
+            id: login_field
+            hint_text: "Фамилия"
+            #required: True
+            #helper_text: "*Обязательное поле"
+            helper_text_mode: "on_error"
+            size_hint_x: None  # Запрещаем автоматическое изменение ширины
+            size_hint_y: None  # Запрещаем автоматическое изменение высоты
+            width: "220dp"  # Устанавлваем желаемую ширину
+            height: "60dp"  # Устанавливаем желаемую высоту
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+
+        MDTextField:
+            id: login_field
+            hint_text: "E-mail"
+            #required: True
+            #helper_text: "*Обязательное поле"
+            helper_text_mode: "on_error"
+            size_hint_x: None  # Запрещаем автоматическое изменение ширины
+            size_hint_y: None  # Запрещаем автоматическое изменение высоты
+            width: "220dp"  # Устанавлваем желаемую ширину
+            height: "60dp"  # Устанавливаем желаемую высоту
+            pos_hint: {'center_x': 0.5, 'center_y': 0.6}    # Первое значение - горизонтальное положение, второе значение - вертикальное положение
+
+        MDTextField:
+            id: login_field
+            hint_text: "Телефон"
+            #required: True
+            #helper_text: "*Обязательное поле"
+            helper_text_mode: "on_error"
+            size_hint_x: None  # Запрещаем автоматическое изменение ширины
+            size_hint_y: None  # Запрещаем автоматическое изменение высоты
+            width: "220dp"  # Устанавлваем желаемую ширину
+            height: "60dp"  # Устанавливаем желаемую высоту
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        MDTextField:
+            id: password_field_reg
+            hint_text: "Введите пароль"
+            password: True
+            #required: True
+            #helper_text: "*Обязательное поле"
+            helper_text_mode: "on_error"
+            size_hint_x: None
+            size_hint_y: None
+            width: "220dp"
+            height: "60dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+
+
+        MDTextField:
+            id: doublePassword_field_reg
+            hint_text: "Повторите пароль"
+            password: True
+            #required: True
+            #helper_text: "*Обязательное поле"
+            helper_text_mode: "on_error"
+            size_hint_x: None
+            size_hint_y: None
+            width: "220dp"
+            height: "60dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+
+        MDRaisedButton:
+            text: "Продолжить"
+            #on_release: app.load_organization(*args)
+            on_release: root.returnBack()
+            pos_hint: {'center_x': 0.15, 'center_y': 0.93}
+            size_hint: 0.1, 0.05
+            font_size: "14sp"  # Устанавливаем размер текста
+            md_bg_color: [0.2, 0.2, 0.5, 1]
+            theme_text_color: "Primary"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.18}
+            #text_color: [0.55, 0.55, 0.55, 1]
+
+        MDFlatButton:
+            text: "[u]Забыли пароль[/u]"
+            #on_release: app.load_organization(*args)
+            on_release: root.returnBack()
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            on_release: root.returnBack()
+            pos_hint: {'center_x': 0.1, 'center_y': 0.93}
+            size_hint: None, None
+            size: "36dp", "36dp"
+            pos_hint: {'center_x': 0.085, 'center_y': 0.94}
+        MDLabel:
+            text: "Регистрация"
+            #theme_text_color: "Primary"
+            #text_color: 0, 1, 1, 1
+            font_size: "24sp"
+            bold: True
+            pos_hint: {'center_x': 0.82, 'center_y': 0.925}
+
+<inAuthScreen>:
+    id: in_auth_screen
+
+    RelativeLayout:
+        #Создаем задний фон
+        Widget:
+            canvas:
                 Color:
                     rgba: 0.2, 0.2, 0.4, 1  # Цвет контура
                 Rectangle:
@@ -344,6 +442,37 @@ ScreenManager:
                     size: 689, 450
 
         #Кнопки/текст о пользователе.
+        MDRaisedButton:
+            text: "Загрузить изображение"
+            #on_release: app.create_organization(*args)
+            on_release: root.create_organization()
+            pos_hint: {'center_x': 0.14, 'center_y': 0.45}
+            size_hint: 0.17, 0.01
+            font_size: "12sp"  # Устанавливаем размер текста
+            md_bg_color: [0.2, 0.2, 0.6, 1]  # Цвет фона кнопки (серый)
+            theme_text_color: "Primary"
+            #text_color: [0.55, 0.55, 0.55, 1]
+        MDRaisedButton:
+            text: "Удалить изображение"
+            #on_release: app.create_organization(*args)
+            on_release: root.create_organization()
+            pos_hint: {'center_x': 0.14, 'center_y': 0.38}
+            size_hint: 0.17, 0.01
+            font_size: "12sp"  # Устанавливаем размер текста
+            md_bg_color: [0.2, 0.2, 0.6, 1]  # Цвет фона кнопки (серый)
+            theme_text_color: "Primary"
+            #text_color: [0.55, 0.55, 0.55, 1]
+        MDRaisedButton:
+            text: "Выйти из аккаунта"
+            #on_release: app.create_organization(*args)
+            on_release: root.returnBack()
+            pos_hint: {'center_x': 0.14, 'center_y': 0.31}
+            size_hint: 0.17, 0.01
+            font_size: "12sp"  # Устанавливаем размер текста
+            md_bg_color: [0.2, 0.2, 0.2, 1]  # Цвет фона кнопки (серый)
+            theme_text_color: "Primary"
+            #text_color: [0.55, 0.55, 0.55, 1]
+
         #MDLabel:
             #text: "Информация"
             #theme_text_color: "Secondary"
@@ -421,6 +550,12 @@ ScreenManager:
             pos_hint: {'center_x': 0.15, 'center_y': 0.22}
 
         #Изображение пользователя
+        Widget:
+            canvas:
+                Color:
+                    rgba: 0.3, 0.3, 0.8, 1  # Цвет контура
+                Line:
+                    rectangle: self.y + 65, self.y + 323, 150, 199  # Указываем координаты и размер контура
         Image:
             source: 'Pictures/rasm.png.JPG'
             pos_hint: {'center_x': 0.14, 'center_y': 0.65 }
