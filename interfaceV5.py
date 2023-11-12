@@ -1,14 +1,13 @@
 from kivy.lang import Builder
-from kivy.uix.image import Image
-from kivy.uix.boxlayout import BoxLayout
 from kivymd.app import MDApp
-from kivymd.uix.textfield import MDTextField
 from kivymd.uix.button import MDRaisedButton
 from kivy.core.window import Window
 from kivy.clock import Clock
 from datetime import datetime
 from kivymd.uix.dialog import MDDialog
-from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition, FadeTransition, SwapTransition, NoTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
+from kivymd.uix.button import MDFlatButton
+
 
 
 class noAuthScreen(Screen):
@@ -34,15 +33,17 @@ class noAuthScreen(Screen):
                 # Вход успешен
                 sm = self.parent  # Получаем доступ к родительскому экрану
                 sm.current = "inAuthScreen"
+                login_field.text = ""  # Очищаем поле логина
+                password_field.text = ""  # Очищаем поле пароля
             else:
                 app.show_dialog("Неуспешная авторизация. Пожалуйста, проверьте введенные данные.")
 
     def register(self, *args):
         app = MDApp.get_running_app()  # Получаем текущий экземпляр приложения
+        #app.show_dialog("Регистрация")
         sm = self.parent  # Получаем доступ к родительскому экрану
-        Window.size = (300, 600)
-        Window.unbind(on_resize=self.on_resize)
         sm.current = "noAuthScreenReg"  # Переход на экран регистрации
+        app.change_window_size(400, 650)  # Изменить размер окна
 
     def create_organization(self, *args):
         app = MDApp.get_running_app()
@@ -60,13 +61,13 @@ class noAuthScreen(Screen):
         app = MDApp.get_running_app()
         app.dialog.open()
 
-class noAuthScreenReg(Screen):
-    def on_leave(self):
-        # В этом методе можно возвращать размер окна к исходным значениям
-        Window.size = (1000, 650)
-    def resize(self, *args):
-        pass
 
+class noAuthScreenReg(Screen):
+    def returnBack(self, *args):
+        app = MDApp.get_running_app()
+        sm = self.parent  # Получаем доступ к родительскому экрану
+        sm.current = "noAuthScreen"  # Переход на экран регистрации
+        app.change_window_size(1000, 650)  # Изменить размер окна
 
 class inAuthScreen(Screen):
     def update_time(self, interval):
@@ -91,6 +92,12 @@ class inAuthScreen(Screen):
         app = MDApp.get_running_app()
         app.show_dialog("Клонирование организации")
 
+    def returnBack(self, *args):
+        app = MDApp.get_running_app()
+        sm = self.parent  # Получаем доступ к родительскому экрану
+        sm.current = "noAuthScreen"  # Переход на экран регистрации
+        #app.change_window_size(1000, 650)  # Изменить размер окна
+
 
 class MyApp(MDApp):
     def build(self):
@@ -100,6 +107,7 @@ class MyApp(MDApp):
 
         Window.size = (1000, 650)
         Window.bind(on_resize=self.on_resize)
+        Window.borderless = True
 
         self.dialog = MDDialog(
             title="Сначала авторизуйтесь",
@@ -110,14 +118,11 @@ class MyApp(MDApp):
 
 
         self.screen_manager = ScreenManager(transition=FadeTransition())        #SwapTransition(), FadeTransition(), NoTransition(),SlideTransition()
-        # Добавьте оба экрана в ScreenManager
+        #Экраны в ScreenManager
         self.screen_manager.add_widget(noAuthScreen(name="noAuthScreen"))
         self.screen_manager.add_widget(noAuthScreenReg(name="noAuthScreenReg"))
         self.screen_manager.add_widget(inAuthScreen(name="inAuthScreen"))
         return self.screen_manager
-
-    def on_resize(self, instance, width, height):
-        Window.size = (1000, 650)
 
     def on_start(self):
         # Вызываем метод update_time каждую секунду
@@ -130,6 +135,21 @@ class MyApp(MDApp):
     def close_dialog(self, instance):
         if hasattr(self, 'dialog'):
             self.dialog.dismiss()
+
+    def toggle_resize(self, enabled):
+        if enabled:
+            Window.bind(on_resize=self.on_resize)
+        else:
+            Window.unbind(on_resize=self.on_resize)
+
+    def change_window_size(self, width, height):
+        self.toggle_resize(False)
+        Window.size = (width, height)
+        Window.create_window()
+        self.toggle_resize(True)
+
+    def on_resize(self, instance, width, height):
+        Window.size = (1000, 650)
 
 
 if __name__ == "__main__":
